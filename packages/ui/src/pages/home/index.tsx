@@ -3,8 +3,11 @@ import { gql, useQuery } from 'urql';
 import styled from 'styled-components';
 
 import { BabyPorcu, Frame } from '../../assets';
-import { Character } from '../../components/Character';
+import { Character } from '../../components/Characters';
 import { Screen } from '../../components/Screen';
+import Porcu from '../../components/Characters/Porcu';
+import Controls from '../../components/Controls';
+import Background from '../../components/Background';
 
 const query = gql`
   query GetCharacters {
@@ -39,15 +42,18 @@ export const Home: React.FC = () => {
   return (
     <StyledHome>
       <Screen>
+        <Controls />
+        <Porcu animate size={200} animationSpeed={1} x={100} y={150} />
+        {/* 
         {result.data.characters.map((character, i) => (
           <Character
             key={i}
             name={character.name}
             characterImage={<BabyPorcu />}
           />
-        ))}
+        ))} */}
       </Screen>
-      <Frame />
+      <Frame width={800} />
     </StyledHome>
   );
 };
