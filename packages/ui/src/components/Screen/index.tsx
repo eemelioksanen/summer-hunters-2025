@@ -34,7 +34,7 @@ export const Screen: FC<IScreenProps> = ({ children, ...restProps }) => {
   return (
     <StyledScreen>
       <BoundingBox {...restProps}>
-        <Background room='kitchen' />
+        <Background />
         {children}
       </BoundingBox>
     </StyledScreen>
