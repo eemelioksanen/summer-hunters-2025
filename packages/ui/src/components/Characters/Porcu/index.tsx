@@ -9,14 +9,14 @@ export interface PorcuProps {
   y?: number;
 }
 
-interface GroupProps {
+export interface SVGGroupProps {
   animate?: boolean;
   animationSpeed: number;
 }
 
 const baseAnimationDuration = 1.5; // seconds
 
-const BodyGroup = styled.g<GroupProps & React.SVGProps<SVGGElement>>`
+const BodyGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
   animation: ${props =>
     props.animate
       ? `upDown ${
@@ -35,7 +35,7 @@ const BodyGroup = styled.g<GroupProps & React.SVGProps<SVGGElement>>`
   }
 `;
 
-const RightWingGroup = styled.g<GroupProps & React.SVGProps<SVGGElement>>`
+const RightWingGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
   animation: ${props =>
     props.animate
       ? `rotateRightWing ${
@@ -55,7 +55,7 @@ const RightWingGroup = styled.g<GroupProps & React.SVGProps<SVGGElement>>`
   }
 `;
 
-const LeftWingGroup = styled.g<GroupProps & React.SVGProps<SVGGElement>>`
+const LeftWingGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
   animation: ${props =>
     props.animate
       ? `rotateLeftWing ${
@@ -75,7 +75,7 @@ const LeftWingGroup = styled.g<GroupProps & React.SVGProps<SVGGElement>>`
   }
 `;
 
-const TailGroup = styled.g<GroupProps & React.SVGProps<SVGGElement>>`
+const TailGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
   animation: ${props =>
     props.animate
       ? `rotateTail ${
@@ -110,7 +110,6 @@ const Porcu: React.FC<PorcuProps> = ({
 }) => {
   return (
     <StyledSvg
-      width={size * (41 / 35)}
       height={size}
       viewBox='0 0 175 205'
       fill='none'
