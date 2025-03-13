@@ -1,8 +1,8 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import styled from 'styled-components';
-import bedroom from '../../assets/backgrounds/bedroom_new.webp';
-import kitchen from '../../assets/backgrounds/kitchen_new.webp';
-import livingroom from '../../assets/backgrounds/livingroom_new.webp';
+import bedroom from '../../assets/backgrounds/bedroom.webp';
+import kitchen from '../../assets/backgrounds/kitchen.webp';
+import livingroom from '../../assets/backgrounds/livingroom.webp';
 import { screenHeight } from '../../constants/config';
 
 const StyledImage = styled.img<{ src: string }>`
