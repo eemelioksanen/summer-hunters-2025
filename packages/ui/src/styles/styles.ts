@@ -42,4 +42,74 @@ export const GlobalStyles = createGlobalStyle`
   a {
     text-decoration: none;
   }
+
+  // BabyPorcu animations
+  @keyframes bounce {
+    0%,
+    100% {
+      transform: translateY(-25%);
+      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+    }
+    50% {
+      transform: none;
+      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+    }
+  }
+
+  @keyframes babyPorcuBounceTail {
+    0% {
+      transform: rotate(20deg);
+    }
+    40% {
+      transform: rotate(20deg);
+    }
+    40% {
+      transform: rotate(-20deg);
+    }
+    100% {
+      transform: rotate(20deg);
+    }
+  }
+
+  // Porcu animations
+  @keyframes porcuBodyAnimation {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(5%);
+    }
+  }
+
+  @keyframes porcuRightWingAnimation {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(25deg);
+    }
+  }
+
+  @keyframes porcuLeftWingAnimation {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(-25deg);
+    }
+  }
+
+  @keyframes porcuTailAnimation {
+    0%,
+    100% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+  }
+
 `;

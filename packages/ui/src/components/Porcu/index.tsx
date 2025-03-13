@@ -1,98 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
-
-export interface PorcuProps {
-  animate?: boolean;
-  size?: number;
-  animationSpeed?: number;
-  x?: number;
-  y?: number;
-}
-
-export interface SVGGroupProps {
-  animate?: boolean;
-  animationSpeed: number;
-}
+import { PorcuProps, PorcuSVGGroupProps } from '../../types/types';
 
 const baseAnimationDuration = 1.5; // seconds
 
-const BodyGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
+const BodyGroup = styled.g<PorcuSVGGroupProps & React.SVGProps<SVGGElement>>`
   animation: ${props =>
     props.animate
-      ? `upDown ${
+      ? `porcuBodyAnimation ${
           baseAnimationDuration / props.animationSpeed
         }s ease-in-out infinite`
       : 'none'};
-
-  @keyframes upDown {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(5%);
-    }
-  }
 `;
 
-const RightWingGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
+const RightWingGroup = styled.g<
+  PorcuSVGGroupProps & React.SVGProps<SVGGElement>
+>`
   animation: ${props =>
     props.animate
-      ? `rotateRightWing ${
+      ? `porcuRightWingAnimation ${
           baseAnimationDuration / props.animationSpeed
         }s ease-in-out infinite`
       : 'none'};
   transform-origin: 75% 40%;
-
-  @keyframes rotateRightWing {
-    0%,
-    100% {
-      transform: rotate(0deg);
-    }
-    50% {
-      transform: rotate(25deg);
-    }
-  }
 `;
 
-const LeftWingGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
+const LeftWingGroup = styled.g<
+  PorcuSVGGroupProps & React.SVGProps<SVGGElement>
+>`
   animation: ${props =>
     props.animate
-      ? `rotateLeftWing ${
+      ? `porcuLeftWingAnimation ${
           baseAnimationDuration / props.animationSpeed
         }s ease-in-out infinite`
       : 'none'};
   transform-origin: 60% 40%;
-
-  @keyframes rotateLeftWing {
-    0%,
-    100% {
-      transform: rotate(0deg);
-    }
-    50% {
-      transform: rotate(-25deg);
-    }
-  }
 `;
 
-const TailGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
+const TailGroup = styled.g<PorcuSVGGroupProps & React.SVGProps<SVGGElement>>`
   animation: ${props =>
     props.animate
-      ? `rotateTail ${
+      ? `porcuTailAnimation ${
           baseAnimationDuration / props.animationSpeed
         }s ease-in-out infinite`
       : 'none'};
   transform-origin: 45% 35%;
-
-  @keyframes rotateTail {
-    0%,
-    100% {
-      transform: rotate(0deg);
-    }
-    50% {
-      transform: rotate(10deg);
-    }
-  }
 `;
 
 const StyledSvg = styled.svg<React.SVGProps<SVGSVGElement>>`
@@ -116,37 +68,34 @@ const Porcu: React.FC<PorcuProps> = ({
       xmlns='http://www.w3.org/2000/svg'
       transform={`translate(${x}, ${y})`}
     >
-      <g>
-        {/* right leg */}
-        <path
-          d='M113.034 112.429V188.644C116.535 189.16 119.734 190.918 122.048 193.596C124.361 196.274 125.635 199.695 125.637 203.234H103.921V112.429H113.034Z'
-          fill='#54C4DB'
-          stroke='#1D1D1B'
-          strokeWidth='3'
-          strokeMiterlimit='10'
-        />
-        <path
-          d='M113.034 188.644H110.235'
-          stroke='#1D1D1B'
-          strokeWidth='3'
-          strokeMiterlimit='10'
-        />
-
-        {/* left leg */}
-        <path
-          d='M95.0953 112.429V188.644C98.5966 189.16 101.796 190.918 104.109 193.596C106.423 196.274 107.697 199.695 107.699 203.234H85.9832V112.429H95.0953Z'
-          fill='#54C4DB'
-          stroke='#1D1D1B'
-          strokeWidth='3'
-          strokeMiterlimit='10'
-        />
-        <path
-          d='M95.0952 188.644H92.2961'
-          stroke='#1D1D1B'
-          strokeWidth='3'
-          strokeMiterlimit='10'
-        />
-      </g>
+      {/* right leg */}
+      <path
+        d='M113.034 112.429V188.644C116.535 189.16 119.734 190.918 122.048 193.596C124.361 196.274 125.635 199.695 125.637 203.234H103.921V112.429H113.034Z'
+        fill='#54C4DB'
+        stroke='#1D1D1B'
+        strokeWidth='3'
+        strokeMiterlimit='10'
+      />
+      <path
+        d='M113.034 188.644H110.235'
+        stroke='#1D1D1B'
+        strokeWidth='3'
+        strokeMiterlimit='10'
+      />
+      {/* left leg */}
+      <path
+        d='M95.0953 112.429V188.644C98.5966 189.16 101.796 190.918 104.109 193.596C106.423 196.274 107.697 199.695 107.699 203.234H85.9832V112.429H95.0953Z'
+        fill='#54C4DB'
+        stroke='#1D1D1B'
+        strokeWidth='3'
+        strokeMiterlimit='10'
+      />
+      <path
+        d='M95.0952 188.644H92.2961'
+        stroke='#1D1D1B'
+        strokeWidth='3'
+        strokeMiterlimit='10'
+      />
       <BodyGroup animationSpeed={animationSpeed} animate={animate}>
         {/* right wing */}
         <RightWingGroup animationSpeed={animationSpeed} animate={animate}>

@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import arrowbutton from '../../../assets/arrowbutton.svg';
+import arrowbutton from '../../assets/arrowbutton.svg';
 import styled from 'styled-components';
 
 const StyledButton = styled.button<

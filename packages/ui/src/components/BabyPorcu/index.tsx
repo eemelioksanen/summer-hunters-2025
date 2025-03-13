@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { PorcuProps, SVGGroupProps } from '../Porcu';
+import { PorcuProps, PorcuSVGGroupProps } from '../../types/types';
 
 const baseAnimationDuration = 1; // seconds
 
@@ -10,51 +10,24 @@ const StyledSvg = styled.svg<React.SVGProps<SVGSVGElement>>`
   top: 0;
 `;
 
-const BodyGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
+const BodyGroup = styled.g<PorcuSVGGroupProps & React.SVGProps<SVGGElement>>`
   animation: ${props =>
     props.animate
       ? `bounce ${
           baseAnimationDuration / props.animationSpeed
         }s infinite ease-in-out`
       : 'none'};
-
-  @keyframes bounce {
-    0%,
-    100% {
-      transform: translateY(-25%);
-      animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
-    }
-    50% {
-      transform: none;
-      animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
-    }
-  }
 `;
 
-const TailGroup = styled.g<SVGGroupProps & React.SVGProps<SVGGElement>>`
+const TailGroup = styled.g<PorcuSVGGroupProps & React.SVGProps<SVGGElement>>`
   animation: ${props =>
     props.animate
-      ? `bounceTail ${
+      ? `babyPorcuBounceTail ${
           baseAnimationDuration / props.animationSpeed
         }s ease-in-out infinite`
       : 'none'};
   transform-origin: 60% 25%;
   animation-delay: -0.629s;
-
-  @keyframes bounceTail {
-    0% {
-      transform: rotate(20deg);
-    }
-    40% {
-      transform: rotate(20deg);
-    }
-    40% {
-      transform: rotate(-20deg);
-    }
-    100% {
-      transform: rotate(20deg);
-    }
-  }
 `;
 
 const BabyPorcu: React.FC<PorcuProps> = ({

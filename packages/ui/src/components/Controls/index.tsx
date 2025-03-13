@@ -1,5 +1,5 @@
 import React from 'react';
-import ArrowButton from '../buttons/ArrowButton';
+import ArrowButton from '../ArrowButton';
 import styled from 'styled-components';
 import { changeBackground, RoomType } from '../Background';
 import Meter from '../Meter';

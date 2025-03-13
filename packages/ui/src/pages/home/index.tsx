@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 import { Frame } from '../../assets';
 import { Screen } from '../../components/Screen';
-import Porcu from '../../components/Characters/Porcu';
-import BabyPorcu from '../../components/Characters/BabyPorcu';
+import Porcu from '../../components/Porcu';
+import BabyPorcu from '../../components/BabyPorcu';
 import Controls from '../../components/Controls';
 
 const query = gql`
