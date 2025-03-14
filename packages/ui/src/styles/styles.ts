@@ -82,6 +82,16 @@ export const GlobalStyles = createGlobalStyle`
     }
   }
 
+  @keyframes porcuSleepAnimation {
+    0%,
+    100% {
+      transform: translateY(23%);
+    }
+    50% {
+      transform: translateY(25%);
+    }
+  }
+
   @keyframes porcuRightWingAnimation {
     0%,
     100% {
@@ -111,5 +121,4 @@ export const GlobalStyles = createGlobalStyle`
       transform: rotate(10deg);
     }
   }
-
 `;
