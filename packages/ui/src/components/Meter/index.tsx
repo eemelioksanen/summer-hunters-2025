@@ -1,6 +1,6 @@
 import React from 'react';
 
-export interface MeterProps {
+export interface IMeterProps {
   type: 'heart' | 'lightning' | 'happiness' | 'cutlery';
   percentage: number;
 }
@@ -149,7 +149,7 @@ const HappinessMeter = ({ percentage }: { percentage: number }) => {
         />
       )}
       {percentage < thresholds[1] && percentage >= thresholds[0] && (
-        <line x1='35' y1='65' x2='65' y2='65' stroke='black' stroke-width='3' />
+        <line x1='35' y1='65' x2='65' y2='65' stroke='black' strokeWidth='3' />
       )}
       {percentage < thresholds[0] && (
         <path
@@ -163,7 +163,7 @@ const HappinessMeter = ({ percentage }: { percentage: number }) => {
   );
 };
 
-const Meter: React.FC<MeterProps> = ({ type, percentage }) => {
+const Meter: React.FC<IMeterProps> = ({ type, percentage }) => {
   if (type == 'happiness') return <HappinessMeter percentage={percentage} />;
   else if (type == 'heart') return <HeartMeter percentage={percentage} />;
   else if (type == 'lightning')

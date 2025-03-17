@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import Background from '../Background';
+
 import { screenHeight, screenWidth } from '../../constants/config';
 
 const StyledScreen = styled.div`
@@ -27,16 +27,13 @@ const BoundingBox = styled.div`
 `;
 
 export interface IScreenProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
-export const Screen: FC<IScreenProps> = ({ children, ...restProps }) => {
+export const Screen: React.FC<IScreenProps> = ({ children, ...restProps }) => {
   return (
     <StyledScreen>
-      <BoundingBox {...restProps}>
-        <Background />
-        {children}
-      </BoundingBox>
+      <BoundingBox {...restProps}>{children}</BoundingBox>
     </StyledScreen>
   );
 };

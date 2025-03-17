@@ -1,20 +1,10 @@
 import React from 'react';
-import { gql, useQuery } from 'urql';
 import styled from 'styled-components';
+import { useGetCharacters } from '../../hooks/character';
 
 import { Frame } from '../../assets';
 import { Screen } from '../../components/Screen';
-import Porcu from '../../components/Porcu';
-import BabyPorcu from '../../components/BabyPorcu';
-import Controls from '../../components/Controls';
-
-const query = gql`
-  query GetCharacters {
-    characters {
-      name
-    }
-  }
-`;
+import Game from '../game';
 
 const StyledHome = styled.div`
   position: fixed;
@@ -27,24 +17,19 @@ const StyledHome = styled.div`
 `;
 
 export const Home: React.FC = () => {
-  // TODO: proper types, maybe shared with backend
-  const [result] = useQuery<{ characters: { name: string }[] }>({ query });
+  const [characters, fetching] = useGetCharacters();
 
-  if (result.fetching) {
+  if (fetching) {
     return <>TODO: handle loading</>;
   }
 
-  if (!result.data) {
+  if (!characters) {
     return <>TODO: handle no data</>;
   }
-
+  const character = characters[0];
   return (
     <StyledHome>
-      <Screen>
-        <Controls />
-        <BabyPorcu animate size={120} animationSpeed={1} x={250} y={250} />
-        <Porcu animate size={200} animationSpeed={1} x={50} y={170} />
-      </Screen>
+      <Screen>{character && <Game character={character} />}</Screen>
       <Frame width={800} />
     </StyledHome>
   );

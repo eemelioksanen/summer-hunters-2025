@@ -1,8 +1,11 @@
 import React from 'react';
-import ArrowButton from '../ArrowButton';
 import styled from 'styled-components';
-import { changeBackground, RoomType } from '../Background';
+
+import ArrowButton from '../ArrowButton';
 import Meter from '../Meter';
+import { porcuYearInSeconds } from '../../constants/config';
+
+import type { IGameState } from 'shared/types';
 
 const StyledButtons = styled.div`
   width: 100%;
@@ -27,31 +30,38 @@ const StyledMeterContainer = styled.div`
   // background-color: rgba(255, 255, 255, 0.5);
 `;
 
-const Controls = () => {
-  const rooms: RoomType[] = ['bedroom', 'kitchen', 'livingroom'];
-  let roomIdx = 0;
+const StyledAgeContainer = styled.div`
+  font-family: 'Arial', sans-serif;
+  font-weight: 800;
+  font-size: 2.3rem;
+  margin-left: auto;
+  color: white;
+  -webkit-text-stroke: 1.2px black;
+  user-select: none;
+`;
 
-  const goLeft = () => {
-    roomIdx = roomIdx == 0 ? rooms.length - 1 : roomIdx - 1;
-    changeBackground(rooms[roomIdx]);
-  };
+interface ControlProps extends IGameState {
+  goLeft: () => void;
+  goRight: () => void;
+  children?: React.ReactNode;
+}
 
-  const goRight = () => {
-    roomIdx = (roomIdx + 1) % rooms.length;
-    changeBackground(rooms[roomIdx]);
-  };
-
+const Controls: React.FC<ControlProps> = props => {
   return (
     <StyledControlParentDiv>
       <StyledMeterContainer>
-        <Meter type='heart' percentage={50} />
-        <Meter type='cutlery' percentage={50} />
-        <Meter type='happiness' percentage={50} />
-        <Meter type='lightning' percentage={50} />
+        <Meter type='heart' percentage={props.health} />
+        <Meter type='cutlery' percentage={props.hunger} />
+        <Meter type='happiness' percentage={props.happiness} />
+        <Meter type='lightning' percentage={props.energy} />
+        <StyledAgeContainer>{`age: ${Math.floor(
+          props.age / porcuYearInSeconds,
+        )}`}</StyledAgeContainer>
       </StyledMeterContainer>
       <StyledButtons>
-        <ArrowButton onClick={goLeft} orientation='left' />
-        <ArrowButton onClick={goRight} orientation='right' />
+        <ArrowButton onClick={props.goLeft} orientation='left' />
+        {props.children}
+        <ArrowButton onClick={props.goRight} orientation='right' />
       </StyledButtons>
     </StyledControlParentDiv>
   );

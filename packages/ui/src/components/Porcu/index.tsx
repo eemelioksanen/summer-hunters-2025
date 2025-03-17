@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import AnimatedGroup from '../AnimatedGroup';
-import { IPorcuProps } from '../../types/types';
+
+import type { IPorcuProps } from '../../types/types';
 
 const StyledParentSVG = styled.svg<React.SVGProps<SVGSVGElement>>`
   position: absolute;

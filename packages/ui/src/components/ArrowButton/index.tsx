@@ -1,6 +1,7 @@
-import React, { FC } from 'react';
-import arrowbutton from '../../assets/arrowbutton.svg';
+import React from 'react';
 import styled from 'styled-components';
+
+import arrowbutton from '../../assets/arrowbutton.svg';
 
 const StyledButton = styled.button<
   React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -33,12 +34,12 @@ const StyledImage = styled.img<
   }
 `;
 
-export interface ArrowButtonProps {
+export interface IArrowButtonProps {
   orientation: 'left' | 'right' | 'up' | 'down';
 }
 
-const ArrowButton: FC<
-  ArrowButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>
+const ArrowButton: React.FC<
+  IArrowButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>
 > = ({ orientation, onClick }) => {
   let rotation = 0;
   switch (orientation) {
