@@ -7,12 +7,4 @@ export interface IPorcuProps {
   y?: number;
 }
 
-export interface IGameState {
-  age: number;
-  health: number;
-  hunger: number;
-  happiness: number;
-  energy: number;
-}
-
 export type IRoom = 'bedroom' | 'kitchen' | 'livingroom';
