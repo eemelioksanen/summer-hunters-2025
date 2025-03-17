@@ -5,10 +5,11 @@ export const createTables = (db: Database) => {
     CREATE TABLE IF NOT EXISTS character (
       id INTEGER PRIMARY KEY,
       name TEXT,
-      description TEXT,
-      age INTEGER,
-      happiness INTEGER DEFAULT 10,
-      hunger INTEGER DEFAULT 0
+      age INTEGER DEFAULT 0,
+      health INTEGER DEFAULT 60,
+      hunger INTEGER DEFAULT 70,
+      happiness INTEGER DEFAULT 50,
+      energy INTEGER DEFAULT 50
     )
   `;
   return new Promise((resolve, reject) => {
@@ -25,13 +26,11 @@ export const seedDatabase = (db: Database) => {
   const porcu = {
     id: 1,
     name: 'Porcu',
-    age: 2,
-    description: 'Wild beast',
   };
 
   return new Promise((resolve, reject) =>
     db.run(
-      `INSERT INTO character (id, name, age, description) VALUES (?, ?, ?, ?)`,
+      `INSERT INTO character (id, name) VALUES (?, ?)`,
       Object.values(porcu),
       (result: unknown, err: any) => {
         if (err) {
