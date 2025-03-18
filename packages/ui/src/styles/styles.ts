@@ -121,4 +121,33 @@ export const GlobalStyles = createGlobalStyle`
       transform: rotate(10deg);
     }
   }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(-100px); /* Start above the container */
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0); /* End at the original position */
+      opacity: 1;
+    }
+  }
+
+  @keyframes porcuEatAnimation {
+    0%, 100% {
+      transform: translateY(); /* Start and end at the original position */
+    }
+    50% {
+      transform: translateY(2%); /* Move up by 20px */
+    }
+  }
+
+  @keyframes babyPorcuEatAnimation {
+    0%, 100% {
+      transform: translateY(); /* Start and end at the original position */
+    }
+    50% {
+      transform: translateY(4%); /* Move up by 20px */
+    }
+  }
 `;

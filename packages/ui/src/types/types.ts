@@ -1,8 +1,10 @@
 export interface IPorcuProps {
   animate?: boolean;
   sleep?: boolean;
+  eat?: boolean;
+  happy?: boolean;
   size?: number;
-  animationSpeed?: number;
+  animationDuration?: number;
   x?: number;
   y?: number;
 }

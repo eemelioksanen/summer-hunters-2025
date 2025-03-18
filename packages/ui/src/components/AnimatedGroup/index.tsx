@@ -2,8 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 export interface IPorcuSVGGroupProps extends React.SVGProps<SVGSVGElement> {
-  animationSpeed: number;
   animation: string;
+  animationDuration?: number;
   xOrigin?: number;
   yOrigin?: number;
   delay?: number;
@@ -11,7 +11,7 @@ export interface IPorcuSVGGroupProps extends React.SVGProps<SVGSVGElement> {
 
 export interface IAnimatedGroupProps extends React.SVGProps<SVGGElement> {
   animation: string;
-  animationSpeed: number;
+  animationDuration: number;
   x: number;
   y: number;
   delay: number;
@@ -19,7 +19,7 @@ export interface IAnimatedGroupProps extends React.SVGProps<SVGGElement> {
 
 export const StyledAnimatedGroup = styled.g<IAnimatedGroupProps>`
   animation: ${props =>
-    `${props.animation} ${props.animationSpeed}s ease-in-out infinite`};
+    `${props.animation} ${props.animationDuration}s ease-in-out infinite`};
   transform-origin: ${props => `${props.x}% ${props.y}%`};
   animation-delay: ${props => props.delay}s;
 `;
@@ -27,7 +27,7 @@ export const StyledAnimatedGroup = styled.g<IAnimatedGroupProps>`
 const AnimatedGroup: React.FC<IPorcuSVGGroupProps> = ({
   children,
   animation = 'none',
-  animationSpeed = 1,
+  animationDuration = 1,
   xOrigin = 0,
   yOrigin = 0,
   delay = 0,
@@ -35,7 +35,7 @@ const AnimatedGroup: React.FC<IPorcuSVGGroupProps> = ({
   return (
     <StyledAnimatedGroup
       animation={animation}
-      animationSpeed={animationSpeed}
+      animationDuration={animationDuration}
       x={xOrigin}
       y={yOrigin}
       delay={delay}
