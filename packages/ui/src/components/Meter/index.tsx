@@ -1,16 +1,21 @@
 import React from 'react';
 
-export interface IMeterProps {
+export interface IMeterProps extends React.SVGProps<SVGSVGElement> {
   type: 'heart' | 'lightning' | 'happiness' | 'cutlery';
   percentage: number;
 }
 
-const HeartMeter = ({ percentage }: { percentage: number }) => (
+interface MeterProps extends React.SVGProps<SVGSVGElement> {
+  percentage: number;
+}
+
+const HeartMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => (
   <svg
     width='45'
     viewBox='0 0 49 43'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
+    {...restProps}
   >
     <defs>
       <linearGradient
@@ -35,12 +40,13 @@ const HeartMeter = ({ percentage }: { percentage: number }) => (
   </svg>
 );
 
-const LightningMeter = ({ percentage }: { percentage: number }) => (
+const LightningMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => (
   <svg
     height='49'
-    viewBox='2 0 24 24'
+    viewBox='0 0 24 24'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
+    {...restProps}
   >
     <defs>
       <linearGradient
@@ -65,12 +71,13 @@ const LightningMeter = ({ percentage }: { percentage: number }) => (
   </svg>
 );
 
-const CutleryMeter = ({ percentage }: { percentage: number }) => (
+const CutleryMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => (
   <svg
     width='38'
     viewBox='0 0 47 52'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
+    {...restProps}
   >
     <defs>
       <linearGradient
@@ -101,7 +108,7 @@ const CutleryMeter = ({ percentage }: { percentage: number }) => (
   </svg>
 );
 
-const HappinessMeter = ({ percentage }: { percentage: number }) => {
+const HappinessMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => {
   const thresholds = [30, 70]; // value thresholds for sad / neutral / happy
   let color;
   let secondColor;
@@ -116,7 +123,12 @@ const HappinessMeter = ({ percentage }: { percentage: number }) => {
     secondColor = '#ffb8b8';
   }
   return (
-    <svg width='50' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'>
+    <svg
+      width='50'
+      viewBox='0 0 100 100'
+      xmlns='http://www.w3.org/2000/svg'
+      {...restProps}
+    >
       <defs>
         <linearGradient
           id={`happinesss-partial-fill-${percentage}`}
@@ -163,12 +175,15 @@ const HappinessMeter = ({ percentage }: { percentage: number }) => {
   );
 };
 
-const Meter: React.FC<IMeterProps> = ({ type, percentage }) => {
-  if (type == 'happiness') return <HappinessMeter percentage={percentage} />;
-  else if (type == 'heart') return <HeartMeter percentage={percentage} />;
+const Meter: React.FC<IMeterProps> = ({ type, percentage, ...restProps }) => {
+  if (type == 'happiness')
+    return <HappinessMeter {...restProps} percentage={percentage} />;
+  else if (type == 'heart')
+    return <HeartMeter {...restProps} percentage={percentage} />;
   else if (type == 'lightning')
-    return <LightningMeter percentage={percentage} />;
-  else if (type == 'cutlery') return <CutleryMeter percentage={percentage} />;
+    return <LightningMeter {...restProps} percentage={percentage} />;
+  else if (type == 'cutlery')
+    return <CutleryMeter {...restProps} percentage={percentage} />;
   else return null;
 };
 

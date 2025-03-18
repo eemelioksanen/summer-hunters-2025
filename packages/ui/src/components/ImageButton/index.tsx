@@ -12,7 +12,7 @@ const StyledButton = styled.button<
   height: auto;
   cursor: pointer;
   user-select: none;
-transform-origin: center;
+  transform-origin: center;
   transition: transform 0.2s ease-in-out;
 
   &:hover {
@@ -20,7 +20,7 @@ transform-origin: center;
   }
 
   &:active {
-    transform: scale(1.05));
+    transform: scale(1.05);
     transition: transform 0.05s ease-in-out;
   }
 `;

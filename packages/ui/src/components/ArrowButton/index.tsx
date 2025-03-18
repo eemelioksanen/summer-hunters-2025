@@ -10,18 +10,23 @@ const StyledButton = styled.button<
   transparency: 0;
   align-items: center;
   border: none;
-  width: 10;
   height: auto;
   cursor: pointer;
   user-select: none;
 `;
 
 const StyledImage = styled.img<
-  { rotation: number } & React.ImgHTMLAttributes<HTMLImageElement>
+  {
+    rotation: number;
+    width?: number;
+    height?: number;
+  } & React.ImgHTMLAttributes<HTMLImageElement>
 >`
   transform-origin: center;
   transform: rotate(${props => props.rotation}deg);
   will-change: transform;
+  width: ${props => (props.width ? props.width + 'px' : 'auto')};
+  height: ${props => (props.height ? props.height + 'px' : 'auto')};
   transition: transform 0.2s ease-in-out;
 
   &:hover {
@@ -36,11 +41,13 @@ const StyledImage = styled.img<
 
 export interface IArrowButtonProps {
   orientation: 'left' | 'right' | 'up' | 'down';
+  width?: number;
+  height?: number;
 }
 
 const ArrowButton: React.FC<
   IArrowButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>
-> = ({ orientation, onClick }) => {
+> = ({ orientation, onClick, width, height }) => {
   let rotation = 0;
   switch (orientation) {
     case 'left':
@@ -59,7 +66,12 @@ const ArrowButton: React.FC<
 
   return (
     <StyledButton onClick={onClick}>
-      <StyledImage rotation={rotation} src={arrowbutton} width={80} />
+      <StyledImage
+        height={height}
+        width={width}
+        rotation={rotation}
+        src={arrowbutton}
+      />
     </StyledButton>
   );
 };
