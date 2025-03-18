@@ -1,0 +1,36 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width="48"
+  height="48"
+  fill="currentColor"
+>
+  <!-- Outer Rectangle with Black Outline -->
+  <rect
+    x="2"
+    y="2"
+    width="20"
+    height="20"
+    rx="2"
+    ry="2"
+    fill="#2196f3"
+    stroke="black"
+    strokeWidth="1"
+  />
+
+  <!-- Inner Rectangle for Save Slot with Black Outline -->
+  <rect
+    x="6"
+    y="4"
+    width="12"
+    height="6"
+    rx="1"
+    ry="1"
+    fill="#ffffff"
+    stroke="black"
+    strokeWidth="1"
+  />
+
+  <!-- Save Icon Circle with Black Outline -->
+  <circle cx="12" cy="16" r="3" fill="#ffffff" stroke="black" strokeWidth="1" />
+</svg>

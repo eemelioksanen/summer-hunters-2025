@@ -42,8 +42,8 @@ const HeartMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => (
 
 const LightningMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => (
   <svg
-    height='49'
-    viewBox='0 0 24 24'
+    height='57'
+    viewBox='2 -1 20 26'
     fill='none'
     xmlns='http://www.w3.org/2000/svg'
     {...restProps}
@@ -124,8 +124,8 @@ const HappinessMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => {
   }
   return (
     <svg
-      width='50'
-      viewBox='0 0 100 100'
+      width='48'
+      viewBox='6 0 88 100'
       xmlns='http://www.w3.org/2000/svg'
       {...restProps}
     >

@@ -1,0 +1,47 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 24 24"
+  width="100"
+  height="100"
+  fill="none"
+>
+  <!-- Border (Thicker Stroke) -->
+  <line
+    x1="12"
+    y1="4"
+    x2="12"
+    y2="20"
+    stroke="black"
+    stroke-width="6"
+    stroke-linecap="round"
+  />
+  <line
+    x1="4"
+    y1="12"
+    x2="20"
+    y2="12"
+    stroke="black"
+    stroke-width="6"
+    stroke-linecap="round"
+  />
+
+  <!-- Inner Plus (Thinner Stroke) -->
+  <line
+    x1="12"
+    y1="4"
+    x2="12"
+    y2="20"
+    stroke="#00ff44"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+  <line
+    x1="4"
+    y1="12"
+    x2="20"
+    y2="12"
+    stroke="#00ff44"
+    stroke-width="4"
+    stroke-linecap="round"
+  />
+</svg>

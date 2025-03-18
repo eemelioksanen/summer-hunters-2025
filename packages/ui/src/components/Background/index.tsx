@@ -21,7 +21,7 @@ const BackgroundArrayDiv = styled.div<{ moveX: number; children: ReactNode }>`
   background-color: white;
   transition: transform 0.5s ease-in-out;
   ${props => `transform: translateX(${props.moveX}rem)`};
-  opacity: 0.85;
+  opacity: 0.6;
 `;
 
 const images = { bedroom, kitchen, livingroom };
