@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { useGetCharacters } from '../../hooks/character';
 
+import Game from '../game';
+import CharacterSelect from '../characterSelect';
+import GreetingScreen from '../greetingScreen';
 import { Frame } from '../../assets';
 import { Screen } from '../../components/Screen';
-import Game from '../game';
+import { useGetCharacters } from '../../hooks/character';
+
+import type { ICharacter } from 'shared/types';
 
 const StyledHome = styled.div`
   position: fixed;
@@ -17,19 +21,29 @@ const StyledHome = styled.div`
 `;
 
 export const Home: React.FC = () => {
+  const [character, setCharacter] = useState<ICharacter | undefined>(undefined);
+  const [playingGame, setPlayingGame] = useState(false);
   const [characters, fetching] = useGetCharacters();
 
-  if (fetching) {
-    return <>TODO: handle loading</>;
-  }
+  const playGame = () => setPlayingGame(true);
+  const quitGame = () => setCharacter(undefined);
 
-  if (!characters) {
-    return <>TODO: handle no data</>;
-  }
-  const character = characters[0];
   return (
     <StyledHome>
-      <Screen>{character && <Game character={character} />}</Screen>
+      <Screen>
+        {character && playingGame && (
+          <Game quit={quitGame} character={character} />
+        )}
+        {!character && characters && playingGame && (
+          <CharacterSelect
+            characters={characters}
+            setCharacter={setCharacter}
+          />
+        )}
+        {!playingGame && (
+          <GreetingScreen playGame={playGame} text='Porcugotchi' />
+        )}
+      </Screen>
       <Frame width={800} />
     </StyledHome>
   );
