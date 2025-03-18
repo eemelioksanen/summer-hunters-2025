@@ -27,8 +27,18 @@ export const graphQLSchema = buildSchema(`
     health: Int
   }
 
+  input DeleteCharacterInput {
+    id: Int!
+  }
+
+  input CreateCharacterInput {
+    name: String!
+  }
+
   type Mutation {
     updateCharacter(input: UpdateCharacterInput): Character
+    createCharacter(input: CreateCharacterInput): Character
+    deleteCharacter(input: DeleteCharacterInput): Boolean
   }
 `);
 
@@ -38,4 +48,11 @@ export const createResolvers = (ctx: Context) => ({
   characters: () => ctx.handlers.character.getAll(ctx, {}),
   updateCharacter: ({ input }: { input: ICharacter }) =>
     ctx.handlers.character.update(ctx, input),
+  createCharacter: ({ input }: { input: { name: string } }) =>
+    ctx.handlers.character.create(ctx, input),
+  deleteCharacter: ({ input }: { input: { id: number } }) =>
+    ctx.handlers.character
+      .remove(ctx, input)
+      .then(() => true)
+      .catch(() => false),
 });
