@@ -28,7 +28,7 @@ const BabyPorcu: React.FC<IPorcuProps> = ({
     if (eat) {
       bodyAnimation = 'none';
       tailAnimation = 'none';
-      eatAnimation = 'babyPorcuEat';
+      eatAnimation = 'babyPorcuEatAnimation';
     } else {
       bodyAnimation = sleep ? 'babyPorcuSleepAnimation' : 'bounce';
       tailAnimation = sleep ? 'none' : 'babyPorcuBounceTail';

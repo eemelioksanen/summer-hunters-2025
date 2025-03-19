@@ -20,6 +20,24 @@ const StyledHome = styled.div`
   background-color: #e5fbff;
 `;
 
+const StyledLoadingScreen = styled.div`
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background-color: #e5fbff;
+  align-items: center;
+`;
+
+const LoadingScreen = ({ text }: { text: string }) => (
+  <StyledHome>
+    <Screen>
+      <StyledLoadingScreen>{text}</StyledLoadingScreen>
+    </Screen>
+    <Frame width={800} />
+  </StyledHome>
+);
+
 export const Home: React.FC = () => {
   const [character, setCharacter] = useState<ICharacter | undefined>(undefined);
   const [playingGame, setPlayingGame] = useState(false);
@@ -27,6 +45,10 @@ export const Home: React.FC = () => {
 
   const playGame = () => setPlayingGame(true);
   const quitGame = () => setCharacter(undefined);
+
+  if (fetching) return <LoadingScreen text='Loading...' />;
+  else if (!characters)
+    return <LoadingScreen text='Failed to fetch characters :(' />;
 
   return (
     <StyledHome>
