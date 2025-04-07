@@ -2,9 +2,7 @@
   "name": "sh-22-dev-homework",
   "version": "0.0.1",
   "workspaces": [
-    "packages/*"
-  ],
-  "dependencies": {
-    "yarn": "^1.22.22"
-  }
+    "packages/ui",
+    "packages/shared"
+  ]
 }
