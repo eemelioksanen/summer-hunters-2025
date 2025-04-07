@@ -29,7 +29,9 @@ interface IFallingText {
   playGame: () => void;
 }
 
-const StyledFallingTextSpan = styled.span<IStyledFallingText>`
+const StyledFallingTextSpan = styled.span.withConfig({
+  shouldForwardProp: prop => prop !== 'animationDelay',
+})<IStyledFallingText>`
   display: inline-block;
   transform: translateY(-100px);
   opacity: 0;

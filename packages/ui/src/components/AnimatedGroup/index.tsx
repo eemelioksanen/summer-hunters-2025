@@ -17,7 +17,10 @@ export interface IAnimatedGroupProps extends React.SVGProps<SVGGElement> {
   delay: number;
 }
 
-export const StyledAnimatedGroup = styled.g<IAnimatedGroupProps>`
+export const StyledAnimatedGroup = styled.g.withConfig({
+  shouldForwardProp: prop =>
+    !['animationDuration', 'animation', 'x', 'y', 'delay'].includes(prop),
+})<IAnimatedGroupProps>`
   animation: ${props =>
     `${props.animation} ${props.animationDuration}s ease-in-out infinite`};
   transform-origin: ${props => `${props.x}% ${props.y}%`};

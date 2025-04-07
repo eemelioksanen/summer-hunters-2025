@@ -15,7 +15,10 @@ const StyledButton = styled.button<
   user-select: none;
 `;
 
-const StyledImage = styled.img<
+const StyledImage = styled.img.withConfig({
+  shouldForwardProp: prop =>
+    !['animationDelay', 'rotation', 'width', 'height'].includes(prop),
+})<
   {
     rotation: number;
     width?: number;

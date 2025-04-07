@@ -1,10 +1,15 @@
 import React from 'react';
-import { createClient, Provider } from 'urql';
+import { createClient, Provider, fetchExchange } from 'urql';
 
 const client = createClient({
   url: 'http://localhost:3000',
+  exchanges: [fetchExchange],
 });
 
-export const GraphqlProvider: React.FC = ({ children }) => (
-  <Provider value={client}>{children}</Provider>
-);
+interface GraphqlProviderProps {
+  children: React.ReactNode;
+}
+
+export const GraphqlProvider: React.FC<GraphqlProviderProps> = ({
+  children,
+}) => <Provider value={client}>{children}</Provider>;

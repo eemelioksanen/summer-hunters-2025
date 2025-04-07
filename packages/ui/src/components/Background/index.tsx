@@ -13,7 +13,9 @@ const StyledImage = styled.img<{ src: string }>`
   z-index: -1;
 `;
 
-const BackgroundArrayDiv = styled.div<{ moveX: number; children: ReactNode }>`
+const BackgroundArrayDiv = styled.div.withConfig({
+  shouldForwardProp: prop => !['animationDelay', 'moveX'].includes(prop),
+})<{ moveX: number; children: ReactNode }>`
   user-select: none;
   height: 100%;
   display: flex;
