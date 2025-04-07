@@ -8,9 +8,9 @@ import Controls from '../../components/Controls';
 import { Burger, Sleep, HeartIcon } from '../../assets';
 import ImageButton from '../../components/ImageButton';
 import { porcuYearInSeconds } from '../../constants/config';
-import { useUpdateCharacter } from '../../hooks/character';
+import { useUpdateCharacter } from '../../hooks/character_local';
 
-import type { ICharacter, IGameState } from 'shared/types';
+import type { ICharacter } from 'shared/types';
 import type { IRoom } from '../../types/types';
 
 const StyledGameDiv = styled.div`

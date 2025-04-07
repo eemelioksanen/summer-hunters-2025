@@ -7,7 +7,10 @@ import ArrowButton from '../../components/ArrowButton';
 import { porcuYearInSeconds } from '../../constants/config';
 import ImageButton from '../../components/ImageButton';
 import { TrashCan } from '../../assets';
-import { useCreateCharacter, useDeleteCharacter } from '../../hooks/character';
+import {
+  useCreateCharacter,
+  useDeleteCharacter,
+} from '../../hooks/character_local';
 
 import type { ICharacter } from 'shared/types';
 
@@ -208,6 +211,7 @@ const CharacterSelect: React.FC<ICharacterSelectProps> = ({
 
   const handleCreateCharacter = async (name: string) => {
     const newCharacter = await createCharacter(name);
+    console.log(newCharacter);
     if (newCharacter) {
       setCurrentCharacters([...currentCharacters, newCharacter]);
     }

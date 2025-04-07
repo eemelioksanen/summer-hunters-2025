@@ -6,7 +6,7 @@ import CharacterSelect from '../characterSelect';
 import GreetingScreen from '../greetingScreen';
 import { Frame } from '../../assets';
 import { Screen } from '../../components/Screen';
-import { useGetCharacters } from '../../hooks/character';
+import { useGetCharacters } from '../../hooks/character_local';
 
 import type { ICharacter } from 'shared/types';
 
