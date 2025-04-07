@@ -11,6 +11,23 @@ const StyledParentSVG = styled.svg<React.SVGProps<SVGSVGElement>>`
   top: 0;
 `;
 
+const getCurrentAnimation = (
+  animate: boolean,
+  eat: boolean,
+  sleep: boolean,
+) => {
+  if (!animate) {
+    return {
+      bodyAnimation: 'none',
+      eatAnimation: 'none',
+    };
+  }
+  return {
+    bodyAnimation: sleep ? 'porcuSleepAnimation' : 'porcuBodyAnimation',
+    eatAnimation: eat ? 'porcuEatAnimation' : 'none',
+  };
+};
+
 const Porcu: React.FC<IPorcuProps> = ({
   animate = false,
   eat = false,
@@ -25,12 +42,11 @@ const Porcu: React.FC<IPorcuProps> = ({
   const leftWingAnimation = animate ? 'porcuLeftWingAnimation' : 'none';
   const tailAnimation = animate ? 'porcuTailAnimation' : 'none';
 
-  let bodyAnimation = 'none';
-  let eatAnimation = 'none';
-  if (animate) {
-    bodyAnimation = sleep ? 'porcuSleepAnimation' : 'porcuBodyAnimation';
-    if (eat) eatAnimation = 'porcuEatAnimation';
-  }
+  const { bodyAnimation, eatAnimation } = getCurrentAnimation(
+    animate,
+    eat,
+    sleep,
+  );
 
   const eyesClosed = sleep || happy;
 

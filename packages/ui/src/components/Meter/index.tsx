@@ -9,6 +9,11 @@ interface MeterProps extends React.SVGProps<SVGSVGElement> {
   percentage: number;
 }
 
+const PORCU_THRESHOLDS = {
+  neutral: 30,
+  happy: 70,
+};
+
 const HeartMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => (
   <svg
     width='45'
@@ -109,13 +114,12 @@ const CutleryMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => (
 );
 
 const HappinessMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => {
-  const thresholds = [30, 70]; // value thresholds for sad / neutral / happy
   let color;
   let secondColor;
-  if (percentage >= thresholds[1]) {
+  if (percentage >= PORCU_THRESHOLDS.happy) {
     color = '#03fc84';
     secondColor = '#cdfae4';
-  } else if (percentage >= thresholds[0]) {
+  } else if (percentage >= PORCU_THRESHOLDS.neutral) {
     color = '#fcd835';
     secondColor = '#fcfceb';
   } else {
@@ -152,7 +156,7 @@ const HappinessMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => {
       />
       <circle cx='40' cy='40' r='5' fill='black' />
       <circle cx='60' cy='40' r='5' fill='black' />
-      {percentage >= thresholds[1] && (
+      {percentage >= PORCU_THRESHOLDS.happy && (
         <path
           d='M35 60 Q50 80, 65 60'
           stroke='black'
@@ -160,10 +164,18 @@ const HappinessMeter: React.FC<MeterProps> = ({ percentage, ...restProps }) => {
           fill='none'
         />
       )}
-      {percentage < thresholds[1] && percentage >= thresholds[0] && (
-        <line x1='35' y1='65' x2='65' y2='65' stroke='black' strokeWidth='3' />
-      )}
-      {percentage < thresholds[0] && (
+      {percentage < PORCU_THRESHOLDS.happy &&
+        percentage >= PORCU_THRESHOLDS.neutral && (
+          <line
+            x1='35'
+            y1='65'
+            x2='65'
+            y2='65'
+            stroke='black'
+            strokeWidth='3'
+          />
+        )}
+      {percentage < PORCU_THRESHOLDS.neutral && (
         <path
           d='M35 70 Q50 50, 65 70'
           stroke='black'

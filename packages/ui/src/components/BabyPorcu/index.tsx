@@ -11,6 +11,32 @@ const StyledParentSVG = styled.svg<React.SVGProps<SVGSVGElement>>`
   top: 0;
 `;
 
+const getCurrentAnimation = (
+  animate: boolean,
+  eat: boolean,
+  sleep: boolean,
+) => {
+  if (!animate) {
+    return {
+      bodyAnimation: 'none',
+      tailAnimation: 'none',
+      eatAnimation: 'none',
+    };
+  } else if (eat) {
+    return {
+      bodyAnimation: 'none',
+      tailAnimation: 'none',
+      eatAnimation: 'babyPorcuEatAnimation',
+    };
+  } else {
+    return {
+      bodyAnimation: sleep ? 'babyPorcuSleepAnimation' : 'bounce',
+      tailAnimation: sleep ? 'none' : 'babyPorcuBounceTail',
+      eatAnimation: 'none',
+    };
+  }
+};
+
 const BabyPorcu: React.FC<IPorcuProps> = ({
   animate = false,
   eat = false,
@@ -21,24 +47,11 @@ const BabyPorcu: React.FC<IPorcuProps> = ({
   x = 0,
   y = 0,
 }) => {
-  let bodyAnimation: string;
-  let tailAnimation: string;
-  let eatAnimation: string;
-  if (animate) {
-    if (eat) {
-      bodyAnimation = 'none';
-      tailAnimation = 'none';
-      eatAnimation = 'babyPorcuEatAnimation';
-    } else {
-      bodyAnimation = sleep ? 'babyPorcuSleepAnimation' : 'bounce';
-      tailAnimation = sleep ? 'none' : 'babyPorcuBounceTail';
-      eatAnimation = 'none';
-    }
-  } else {
-    bodyAnimation = 'none';
-    tailAnimation = 'none';
-    eatAnimation = 'none';
-  }
+  const { bodyAnimation, tailAnimation, eatAnimation } = getCurrentAnimation(
+    animate,
+    eat,
+    sleep,
+  );
 
   return (
     <StyledParentSVG

@@ -217,7 +217,7 @@ const CharacterSelect: React.FC<ICharacterSelectProps> = ({
     const result = await deleteCharacter(id);
     if (result) {
       setCurrentCharacters(
-        currentCharacters.filter(character => character.id != id),
+        currentCharacters.filter(character => character.id !== id),
       );
     }
   };

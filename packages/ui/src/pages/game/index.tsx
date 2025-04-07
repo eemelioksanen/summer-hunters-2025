@@ -24,27 +24,29 @@ export interface IGameProps {
   quit: () => void;
 }
 
+const FOOD_VALUE = 20;
+const MAX_HUNGER = 100;
+const MAX_HAPPINESS = 100;
+const MAX_HEALTH = 100;
+const MAX_ENERGY = 100;
+const STOMACH_FULL_THRESHOLD = 90;
+const PREVENT_PETTING_ENERGY_THRESHOLD = 20;
+const HUNGER_HAPPINESS_DRAIN_THRESHOLD = 30;
+const HUNGER_HEALTH_DRAIN_THRESHOLD = 0;
+const PORCU_ADULT_AGE = 5; // in years
+
 const Game: React.FC<IGameProps> = ({ character, quit }) => {
-  const [age, setAge] = useState(character.age);
-  const [happiness, setHappiness] = useState(character.happiness);
-  const [health, setHealth] = useState(character.health);
-  const [hunger, setHunger] = useState(character.hunger);
-  const [energy, setEnergy] = useState(character.energy);
+  const [characterStats, setCharacterStats] = useState<ICharacter>(character);
   const [roomIdx, setRoomIdx] = useState(0);
 
   const [sleeping, setSleeping] = useState(false);
   const [petting, setPetting] = useState(false);
   const [eating, setEating] = useState(false);
 
-  const [updateCharacter, updating] = useUpdateCharacter();
+  const room = rooms[roomIdx];
+  const porcuAgeInYears = Math.floor(characterStats.age / porcuYearInSeconds);
 
-  const gameState: IGameState = {
-    age,
-    happiness,
-    health,
-    hunger,
-    energy,
-  };
+  const [updateCharacter, updating] = useUpdateCharacter();
 
   const goLeft = () => {
     if (!sleeping) setRoomIdx(roomIdx == 0 ? rooms.length - 1 : roomIdx - 1);
@@ -55,14 +57,16 @@ const Game: React.FC<IGameProps> = ({ character, quit }) => {
   };
 
   const eat = () => {
-    const foodValue = 20;
-
-    if (eating || sleeping || hunger >= 90) return;
+    if (eating || sleeping || characterStats.hunger >= STOMACH_FULL_THRESHOLD)
+      return;
     setEating(true);
 
-    setHunger(prevHunger => Math.min(prevHunger + foodValue, 100));
-    setHappiness(prevHappiness => Math.min(prevHappiness + foodValue / 5, 100));
-    setHealth(prevHealth => Math.min(prevHealth + foodValue / 5, 100));
+    setCharacterStats(prevStats => ({
+      ...prevStats,
+      hunger: Math.min(prevStats.hunger + FOOD_VALUE, MAX_HUNGER),
+      happiness: Math.min(prevStats.happiness + FOOD_VALUE / 5, MAX_HAPPINESS),
+      health: Math.min(prevStats.health + FOOD_VALUE / 5, MAX_HEALTH),
+    }));
 
     setTimeout(() => {
       setEating(false);
@@ -74,11 +78,15 @@ const Game: React.FC<IGameProps> = ({ character, quit }) => {
   };
 
   const pet = () => {
-    if (petting || energy <= 20) return;
+    if (petting || characterStats.energy <= PREVENT_PETTING_ENERGY_THRESHOLD)
+      return;
 
     setPetting(true);
-    setHappiness(prevHappiness => Math.min(prevHappiness + 20, 100));
-    setEnergy(prevEnergy => Math.max(prevEnergy - 10, 0));
+    setCharacterStats(prevStats => ({
+      ...prevStats,
+      happiness: Math.min(prevStats.happiness + 20, MAX_HAPPINESS),
+      energy: Math.max(prevStats.energy - 10, 0),
+    }));
 
     setTimeout(() => {
       setPetting(false);
@@ -89,45 +97,52 @@ const Game: React.FC<IGameProps> = ({ character, quit }) => {
     updateCharacter({
       id: character.id,
       name: character.name,
-      age,
-      health,
-      hunger,
-      happiness,
-      energy,
+      age: characterStats.age,
+      health: characterStats.health,
+      hunger: characterStats.hunger,
+      happiness: characterStats.happiness,
+      energy: characterStats.energy,
     });
   };
 
   // game tick
   useEffect(() => {
     const interval = setInterval(() => {
-      if (sleeping) {
-        setEnergy(prevEnergy => Math.min(prevEnergy + 5, 100));
-        setHealth(prevHealth => Math.min(prevHealth + 1, 100));
-      } else {
-        setEnergy(prevEnergy => Math.max(prevEnergy - 1, 0));
-      }
-      setAge(prevAge => prevAge + 1);
+      setCharacterStats(prevStats => {
+        const newStats = { ...prevStats };
+        if (sleeping) {
+          newStats.energy = Math.min(newStats.energy + 5, MAX_ENERGY);
+          newStats.happiness = Math.min(newStats.happiness + 1, MAX_HAPPINESS);
+        } else {
+          newStats.energy = Math.max(newStats.energy - 1, 0);
+        }
+        newStats.age = newStats.age + 1;
 
-      // if hunger at 0, lose health
-      setHunger(prevHunger => {
-        const newHunger = prevHunger - 1;
-        if (newHunger <= 0)
-          setHealth(prevHealth => Math.max(prevHealth - 3, 0));
-        return Math.max(newHunger, 0);
+        newStats.hunger = Math.max(newStats.hunger - 1, 0);
+        // Decrease happiness if hunger is below a certain threshold
+        if (newStats.hunger <= 0) {
+          newStats.health = Math.max(newStats.health - 3, 0);
+        }
+        // Decrease happiness if hunger is below a certain threshold
+        if (newStats.hunger <= HUNGER_HAPPINESS_DRAIN_THRESHOLD) {
+          newStats.happiness = Math.max(newStats.happiness - 1, 0);
+        }
+        // Decrease health if hunger is below a certain threshold
+        if (newStats.hunger <= HUNGER_HEALTH_DRAIN_THRESHOLD) {
+          newStats.health = Math.max(newStats.health - 1, 0);
+        }
+        return newStats;
       });
     }, 1000);
 
     return () => clearInterval(interval);
   }, [sleeping]);
 
-  const room = rooms[roomIdx];
-  const porcuAgeInYears = Math.floor(age / porcuYearInSeconds);
-
   return (
     <StyledGameDiv>
       <Background room={room} />
       <Controls
-        {...gameState}
+        {...characterStats}
         goLeft={goLeft}
         goRight={goRight}
         saveGame={saveProgress}
@@ -149,7 +164,7 @@ const Game: React.FC<IGameProps> = ({ character, quit }) => {
           </ImageButton>
         )}
       </Controls>
-      {porcuAgeInYears > 5 ? (
+      {porcuAgeInYears > PORCU_ADULT_AGE ? (
         <Porcu
           sleep={sleeping}
           eat={eating}
